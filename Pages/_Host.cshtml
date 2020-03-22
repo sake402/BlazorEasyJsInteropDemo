@@ -1,0 +1,64 @@
+﻿@page "/"
+@namespace BlazorJSDemo.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlazorJSDemo</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="leaflet/leaflet.css" rel="stylesheet" />
+    <link href="chartjs/Chart.css" rel="stylesheet" />
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script type="text/javascript">
+        var functions = {};
+
+        window["lt"] = {};
+        window["lt"]["storeProcedure"] = function (key, code) {
+            var fun = new Function("p", code);
+            functions[key] = fun;
+        }
+
+        window["lt"]["execute"] = function (code, parameters, key) {
+            var fun = new Function("p", code);
+            if (key !== null) {
+                functions[key] = fun;
+            }
+            var returns = fun.call(this, parameters);
+            return returns;
+        }
+
+        window["lt"]["executeStored"] = function (key, parameters) {
+            var fun = functions[key];
+            var returns = fun.call(this, parameters);
+            return returns;
+        }
+
+    </script>
+    <script src="chartjs/Chart.js"></script>
+    <script src="leaflet/leaflet.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
