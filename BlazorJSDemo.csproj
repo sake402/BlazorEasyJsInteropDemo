@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\LivingThing.TCCS\LivingThing.TCCS.csproj" />
+    <PackageReference Include="LivingThing.TCCS" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\..\Libraries\LivingThing.TCCS\LivingThing.TCCS.csproj" />-->
   </ItemGroup>
 
 </Project>
